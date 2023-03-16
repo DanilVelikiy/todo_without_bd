@@ -1,7 +1,3 @@
-// Get the button and container elements from HTML:
-//const button = document.getElementById("theButton")
-//const data = document.getElementById("info")
-
 // =============================================================
 // Блок, который собирает из api данные о задачах в json формате
 // и потом строит с этими данными красивый список
@@ -15,7 +11,7 @@ fetch("http://127.0.0.1:5000/api",
     return res.json();
 })
 .then(data => {
-    // полученный json файл с задачами перебираю поэлементно и собирая данные о задаче - номер, текст, статус
+    // полученный json файл с задачами перебираю поэлементно и собираю данные о задаче - номер, текст, статус
     // создаю html код блока отображения данной задачи
     data.forEach(element => {
         id_check = `customCheck_${element.count}`
@@ -50,7 +46,7 @@ fetch("http://127.0.0.1:5000/api",
 // ======================================================
 
 function add_todo(title) {
-    // Добавление элемента в DOM, принимает аргумент tittle - это вводимое значение
+    // Функция добавления html блока задачи в DOM, принимает аргумент tittle - это вводимое значение
     document.getElementById("todo_list").innerHTML += `
         <div id='todo_${count}' class="todo-item my-2 p-4 bg-light border border-light card">
             <div class="custom-control custom-checkbox">
@@ -67,11 +63,11 @@ function add_todo(title) {
     count += 1
     
 
-    //Тут добавлю через бек запросом POST новый элемент в JSON 
+    //Тут добавлю через бекенд запросом POST новый элемент в JSON 
     // это будет fetch с методом POST в функции, срабатывающей
     // по нажатию кнопкии Add task
     
-    // вот новая задача которая прилетела по нажатию кнопку add
+    // а это новая задача которая прилетела по нажатию кнопку add
     var data_new = {
         "count": count,
         "task": title,
@@ -105,7 +101,6 @@ function add_todo(title) {
 // как JS находит этот id ? Почему он равен count ?
 
 function delete_todo(id){
-    console.log("C L I C K  D E L E T E  T A S K");
     $("#todo_" + id).slideUp()
         setTimeout(
             function(){
@@ -113,24 +108,20 @@ function delete_todo(id){
                         },2000
                 )
     
-    // здесь надо делать fetch запрос методом DELETE и удалять в списке JSON эту задачку
+    // далее fetch запрос методом DELETE и удалять в списке JSON эту задачку
     
     // собрать данные по удаляемому элементу
     var custom_element_dom = document.getElementById("todo_" + id);
-    //var custom_element_dom = document.querySelector("#todo_" + id);
-    //console.log(custom_element_dom);
-    //var task = custom_element_dom.querySelector('h4')[0];
     var task = custom_element_dom.getElementsByTagName('h4')[0].innerText;
-    //var count = custom_element_dom.getElementById('count')[0].innerText
-    var count = id;
 
+    var count = id;
 
     delete_data = {
         "count": count,
         "task": task,
     };
     
-    //console.log('D E L E T E task', delete_data);
+    // А вот и fetch запрос
 
     fetch("http://127.0.0.1:5000/api",
     {
@@ -171,28 +162,28 @@ $("#todo-form").submit(function(){
 // Слушатель на нативном JS
 // Прослушку навешиваю на родительский элемент, если собрать массив чекбоксов
 // и на каждый вешать, то почему прослушка отваливается.
-// а тут прекрасно событие всплывает и народительском элементе ловится
+// а тут прекрасно событие всплывает и на родительском элементе ловится
 
 var todo_div = document.getElementById("todo_list");
 
 todo_div.addEventListener('change', function(event){
     
     // введу две перемнные
-    // 1-ая это непосредственно сам HTML элемента input где нажатог checkbox
+    // 1-ая это непосредственно сам HTML элемента input где нажат checkbox
     var elementCheckbox = event.target;
     // 2-ая величина - это булевая переменная, отвечающая на вопрос стоит галочка
     // в чебоексе или нет
     var checkedTask = elementCheckbox.checked;
 
     // проверяю статус чекбокса, если нажат, то беру его  id и
-    // присвиваю соовтетсвующее значение переменно обновления статуса
+    // присваиваю соовтетсвующее значение переменной обновления статуса
     var idTask = elementCheckbox.id;
     if (checkedTask == true) {
         var update_status = "done";
         };
     
     // проверяю статус чекбокса, если отжат, то беру его  id
-    // присвиваю соовтетсвующее значение переменно обновления статуса
+    // присваиваю соовтетсвующее значение переменной обновления статуса
     // хотя наверное тут можно было бы просто else сделать и не морочить второй if
     if (checkedTask == false) {
         var update_status = "active";
