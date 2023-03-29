@@ -12,7 +12,7 @@
   {
     "count": "count1111111111111",
     "task": "Паровоз",
-    "status": "done"
+    "status": "active"
   },
   {
     "count": "count111111111111111",
@@ -27,7 +27,7 @@
   {
     "count": "count111111111111111111",
     "task": "Жмака",
-    "status": "active"
+    "status": "done"
   },
   {
     "count": "count1111111111111111111",
@@ -37,7 +37,7 @@
   {
     "count": "count11111111111111111111",
     "task": "Папатам",
-    "status": "active"
+    "status": "done"
   },
   {
     "count": "count111111111111111111111",
@@ -52,6 +52,6 @@
   {
     "count": "count11111111111111111111111",
     "task": "Хрум",
-    "status": "active"
+    "status": "done"
   }
 ]

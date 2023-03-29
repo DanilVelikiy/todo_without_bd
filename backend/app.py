@@ -8,10 +8,12 @@ app = Flask(__name__)
 #Set up Flask to bypass CORS:
 cors = CORS(app)
 
+json_data = 'data.json'
+
 @app.route("/api", methods=["GET"])
 def getME():
     if (request.method == 'GET'):
-        with open('data.json', 'r') as f:
+        with open(json_data, 'r') as f:
             data = json.load(f)
         
         return jsonify(data)
@@ -22,7 +24,7 @@ def jsonPOST():
     try:
         new_data = json.loads(request.data)
         
-        with open('data.json', 'r') as f:
+        with open(json_data, 'r') as f:
             data = json.load(f)
         
         data.append(new_data)
@@ -42,7 +44,7 @@ def jsonDEL():
 
         delete_count = delete_data['count']
 
-        with open('data.json', 'r') as f:
+        with open(json_data, 'r') as f:
             data = json.load(f)
 
         for element in data:
@@ -66,7 +68,7 @@ def jsonCHANGE():
         
         change_data_count = change_data['count']
 
-        with open('data.json', 'r') as f:
+        with open(json_data, 'r') as f:
             data = json.load(f)
 
         for element in data:

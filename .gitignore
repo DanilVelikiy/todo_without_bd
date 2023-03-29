@@ -1,5 +1,5 @@
 .DS_Store
-/venv/
-/__pycache__/
-jsonchange.py
-jsonfile.py
+/backend/venv/
+/backend/__pycache__/
+/backend/jsonchange.py
+/backend/jsonfile.py
