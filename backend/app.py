@@ -1,16 +1,22 @@
 from flask import Flask, request, jsonify
 import flask
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import json
 
 #Set up Flask:
 app = Flask(__name__)
-#Set up Flask to bypass CORS:
+
 cors = CORS(app)
+
+# конфигурирование нужным заголовоком приложения flask для ответа CORS браузеру
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 json_data = 'data.json'
 
 @app.route("/api", methods=["GET"])
+# декорирование запроса, что бы сервер отдавал CORS ответ
+@cross_origin()
 def getME():
     if (request.method == 'GET'):
         with open(json_data, 'r') as f:
@@ -20,6 +26,7 @@ def getME():
 
 # Добавление новых элементов через api
 @app.route("/api", methods=["POST"])
+@cross_origin()
 def jsonPOST():
     try:
         new_data = json.loads(request.data)
@@ -38,6 +45,7 @@ def jsonPOST():
 
 # Удаление элементов списка
 @app.route("/api", methods=["DELETE"])
+@cross_origin()
 def jsonDEL():
     try:
         delete_data = json.loads(request.data)
@@ -62,6 +70,7 @@ def jsonDEL():
 
 # Изменение элементов списка
 @app.route("/api", methods=["PUT"])
+@cross_origin()
 def jsonCHANGE():
     try:
         change_data = json.loads(request.data)
@@ -81,6 +90,3 @@ def jsonCHANGE():
         return data
     except Exception as e:
         print("Error change: {e}")
-
-if __name__ == "__main__": 
-    app.run(debug=True)

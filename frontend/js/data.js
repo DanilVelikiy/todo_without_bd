@@ -3,8 +3,11 @@
 // и потом строит с этими данными красивый список
 // ============================================================
 
-fetch("http://127.0.0.1:5000/api",
+//fetch("http://127.0.0.1:5000/api",
+//fetch("http://todo_backend:5000/api",
+fetch("/api",
 {
+    mode: "cors",
     method: "GET",
 })
 .then(res => {
@@ -75,8 +78,11 @@ function add_todo(title) {
     }
 
     // запрос к api, отдаю данные по новой задаче
-    fetch("http://127.0.0.1:5000/api",
+    //fetch("http://127.0.0.1:5000/api",
+    //fetch("http://todo_backend:5000/api",
+    fetch("/api",
     {
+        mode: "cors",
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -85,10 +91,10 @@ function add_todo(title) {
 
         body: JSON.stringify(data_new)
     })
-    // как бы вроде это и не надо, но без этого работает хуже, не обновляет страницу после
+    //как бы вроде это и не надо, но без этого работает хуже, не обновляет страницу после
     // добавления и вылазят немного косяки, надо допиливать
-    .then(response => {
-       response.json();});
+    .then(res => {
+       return res.json();});
 }
 
 // ====================================================
@@ -123,8 +129,11 @@ function delete_todo(id){
     
     // А вот и fetch запрос
 
-    fetch("http://127.0.0.1:5000/api",
+    //fetch("http://127.0.0.1:5000/api",
+    //fetch("http://todo_backend:5000/api",
+    fetch("/api",
     {
+        mode: "cors",
         method: "DELETE",
         headers: {
            'Accept': 'application/json',
@@ -133,11 +142,11 @@ function delete_todo(id){
 
         body: JSON.stringify(delete_data)
 
-    })
-    .then(response => {
-        console.log(response);
-        response.json();
     });
+    //.then(response => {
+    //    console.log(response);
+    //    response.json();
+    //});
 
     
     }
@@ -200,8 +209,11 @@ todo_div.addEventListener('change', function(event){
       };
 
     // отправляем PUTом в fetch даннные в бекенд
-    fetch("http://127.0.0.1:5000/api",
+    //fetch("http://127.0.0.1:5000/api",
+    //fetch("http://todo_backend:5000/api",
+    fetch("/api",
     {
+        mode: "cors",
         method: "PUT",
         headers: {
             'Accept': 'application/json',
@@ -210,10 +222,10 @@ todo_div.addEventListener('change', function(event){
         body: JSON.stringify(change_data)
  
     })
-    .then(response => {
-       response.json();
-       console.log(response);
-    })
+    //.then(response => {
+    //   response.json();
+    //   console.log(response);
+    //})
     .catch(error => {
        console.log("Error: ", error);
     });
